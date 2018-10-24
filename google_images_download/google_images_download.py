@@ -5,6 +5,7 @@
 ###### Searching and Downloading Google Images to the local disk ######
 
 # Import Libraries
+from fake_useragent import UserAgent
 import sys
 version = (3, 0)
 cur_version = sys.version_info
@@ -42,7 +43,7 @@ args_list = ["keywords", "keywords_from_file", "prefix_keywords", "suffix_keywor
              "thumbnail", "language", "prefix", "chromedriver", "related_images", "safe_search", "no_numbering",
              "offset", "no_download"]
 
-
+#user_agent = UserAgent().random
 def user_input():
     config = argparse.ArgumentParser()
     config.add_argument('-cf', '--config_file', help='config file name', default='', type=str, required=False)
@@ -131,7 +132,7 @@ class googleimagesdownload:
         if cur_version >= version:  # If the Current Version of Python is 3.0 or above
             try:
                 headers = {}
-                headers['User-Agent'] = "Mozilla/5.0"
+                headers['User-Agent'] = UserAgent().random
                 req = urllib.request.Request(url, headers=headers)
                 resp = urllib.request.urlopen(req)
                 respData = str(resp.read())
@@ -141,7 +142,7 @@ class googleimagesdownload:
         else:  # If the Current Version of Python is 2.x
             try:
                 headers = {}
-                headers['User-Agent'] = "Mozilla/5.0"
+                headers['User-Agent'] = UserAgent().random
                 req = urllib2.Request(url, headers=headers)
                 try:
                     response = urllib2.urlopen(req)
@@ -276,7 +277,7 @@ def format_object(self,object):
                 raise
             pass
         req = Request(url, headers={
-                      "User-Agent": "Mozilla/5.0"})
+                      "User-Agent": UserAgent().random})
 
 response = urlopen(req, None, 10)
 data = response.read()
@@ -310,7 +311,7 @@ def similar_images(self,similar_images):
             try:
                 searchUrl = 'https://www.google.com/searchbyimage?site=search&sa=X&image_url=' + similar_images
                 headers = {}
-                headers['User-Agent'] = "Mozilla/5.0"
+                headers['User-Agent'] = UserAgent().random
                 
                 req1 = urllib.request.Request(searchUrl, headers=headers)
                 resp1 = urllib.request.urlopen(req1)
@@ -333,7 +334,7 @@ def similar_images(self,similar_images):
         try:
             searchUrl = 'https://www.google.com/searchbyimage?site=search&sa=X&image_url=' + similar_images
                 headers = {}
-                headers['User-Agent'] = "Mozilla/5.0"
+                headers['User-Agent'] = UserAgent().random
                 
                 req1 = urllib2.Request(searchUrl, headers=headers)
                 resp1 = urllib2.urlopen(req1)
@@ -501,7 +502,7 @@ def download_image_thumbnail(self,image_url,main_directory,dir_name,return_image
             return "success","Printed url without downloading"
     try:
         req = Request(image_url, headers={
-                      "User-Agent": "Mozilla/5.0"})
+                      "User-Agent": UserAgent().random})
                       try:
                           # timeout time to download an image
                           if socket_timeout:
@@ -563,7 +564,7 @@ def download_image_thumbnail(self,image_url,main_directory,dir_name,return_image
                                                                                                                                                                       return "success","Printed url without downloading",None,None
                                                                                                                                                                           try:
                                                                                                                                                                               req = Request(image_url, headers={
-                                                                                                                                                                                            "User-Agent": "Mozilla/5.0"})
+                                                                                                                                                                                            "User-Agent": UserAgent().random})
                                                                                                                                                                                             try:
                                                                                                                                                                                                 # timeout time to download an image
                                                                                                                                                                                                 if socket_timeout:
@@ -613,7 +614,7 @@ def download_image_thumbnail(self,image_url,main_directory,dir_name,return_image
                                                                                                                                                                                                                                                                                                     download_status = 'success'
                                                                                                                                                                                                                                                                                                         download_message = "Completed Image ====> " + prefix + str(count) + ". " + image_name
                                                                                                                                                                                                                                                                                                         return_image_name = prefix + str(count) + ". " + image_name
-                                                                                                                                                                                                                                                                                                    
+
                                                                                                                                                                                                                                                                                                         # image size parameter
                                                                                                                                                                                                                                                                                                         if print_size:
                                                                                                                                                                                                                                                                                                             print("Image Size: " + str(self.file_size(path)))
@@ -856,7 +857,7 @@ def download_image_thumbnail(self,image_url,main_directory,dir_name,return_image
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 print("Starting Download...")
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     items,errorCount,abs_path = self._get_all_items(raw_html,main_directory,dir_name,limit,arguments)    #get all image items and download images
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     paths[pky + search_keyword[i] + sky] = items
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     #dumps into a json file
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     if arguments['extract_metadata']:
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         try:
